@@ -1,43 +1,45 @@
 import React from "react";
-import Box from "@mui/material/Box";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Controller } from "react-hook-form";
-
+import Box from "@mui/material/Box";
 export default function CountrySelect({ control }) {
   return (
-    <Autocomplete
-      id="country-select-demo"
-      sx={{ width: 250 }}
-      options={countries}
-      autoHighlight
-      getOptionLabel={(option) => option.label}
-      renderOption={(props, option) => (
-        <Box
-          component="li"
-          sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
-          {...props}
-        >
-          <img
-            loading="lazy"
-            width="15"
-            src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-            srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
-            alt=""
-          />
-          +{option.phone} {option.label}({option.code})
-        </Box>
-      )}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label={"Choose a country"}
-          inputProps={{
-            ...params.inputProps,
-            autoComplete: "new-password", // disable autocomplete and autofill
-          }}
+    <Controller
+      render={({ field }) => (
+        <Autocomplete
+          {...field}
+          sx={{ width: 250 }}
+          options={countries}
+          getOptionLabel={(option) => option.label}
+          renderOption={(props, option) => (
+            <Box
+              component="li"
+              sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+              {...props}
+            >
+              <img
+                loading="lazy"
+                width="15"
+                src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                alt=""
+              />
+              +{option.phone} {option.label}({option.code})
+            </Box>
+          )}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Choose a country"
+              variant="outlined"
+            />
+          )}
+          onChange={(_, data) => field.onChange(data)}
         />
       )}
+      name="country"
+      control={control}
     />
   );
 }

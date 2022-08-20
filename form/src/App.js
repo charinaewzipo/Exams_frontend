@@ -4,7 +4,11 @@ import Form from "./components/Form";
 import Pagination from "./components/Pagination";
 
 function App() {
-  return <Pagination />;
+  return (
+    <>
+      <Form />;<Pagination />;
+    </>
+  );
 }
 
 export default App;

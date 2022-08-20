@@ -1,25 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import NumberFormat from "react-number-format";
-import ReactSelect from "react-select";
+import { v4 as uuidv4 } from "uuid";
 import styled from "styled-components";
 import {
   TextField,
-  Checkbox,
   Select,
   MenuItem,
-  Switch,
   RadioGroup,
   FormControlLabel,
-  ThemeProvider,
   Radio,
-  createMuiTheme,
-  Slider,
 } from "@material-ui/core";
-import MuiAutoComplete from "./MuiAutoComplete";
-<style>span {{ fontSize: "24px" }}</style>;
+import MuiAutoComplete from "./MuiAutoComplete.js";
+
 const Container = styled.div`
   margin: 0;
   min-height: 100vh;
@@ -99,6 +94,7 @@ const Button = styled.button`
 const FormContainer = styled.form``;
 const Form = () => {
   const defaultValues = {
+    uuid: "",
     Title: "Mr",
     Nationality: "",
     Gender: "",
@@ -106,15 +102,21 @@ const Form = () => {
     country: { code: "TH", label: "Thailand", phone: "66" },
   };
 
-  const { handleSubmit, control } = useForm({
-    defaultValues,
-  });
-  const [data, setData] = useState(null);
-  const onSubmit = (user) => {
-    setData(user);
-    localStorage.setItem("user", JSON.stringify(data));
-    console.log(data);
+  const { handleSubmit, control } = useForm({});
+
+  const LOCAL_STORAGE_KEY = "users";
+  const [users, setUsers] = useState(
+    JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || []
+  );
+
+  const onSubmit = (data) => {
+    setUsers((prev) => [...prev, { uuid: uuidv4(), ...data }]);
+    // setUsers(data);
   };
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(users));
+  }, [users]);
   return (
     <Container>
       <Wrapper>
@@ -194,6 +196,8 @@ const Form = () => {
                 render={({ field }) => (
                   <Select {...field}>
                     <MenuItem value={"Thai"}>Thai</MenuItem>
+                    <MenuItem value={"American"}>American</MenuItem>
+                    <MenuItem value={"Laos"}>Laos</MenuItem>
                   </Select>
                 )}
                 name="Nationality"
@@ -305,7 +309,7 @@ const Form = () => {
             </SalaryContainer>
           </OtherInfo>
 
-          <Button onClick={handleSubmit(onSubmit)}>SUBMIT</Button>
+          <Button type="submit">SUBMIT</Button>
         </FormContainer>
       </Wrapper>
     </Container>
