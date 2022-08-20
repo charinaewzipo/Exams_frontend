@@ -102,7 +102,7 @@ const Form = () => {
     country: { code: "TH", label: "Thailand", phone: "66" },
   };
 
-  const { handleSubmit, control } = useForm({});
+  const { handleSubmit, control } = useForm({ defaultValues });
 
   const LOCAL_STORAGE_KEY = "users";
   const [users, setUsers] = useState(
@@ -110,7 +110,7 @@ const Form = () => {
   );
 
   const onSubmit = (data) => {
-    setUsers((prev) => [...prev, { uuid: uuidv4(), ...data }]);
+    setUsers((prev) => [...prev, { ...data, uuid: uuidv4() }]);
     // setUsers(data);
   };
 
@@ -126,7 +126,7 @@ const Form = () => {
             <Star>*</Star>
             <Controller
               render={({ field }) => (
-                <Select {...field}>
+                <Select {...field} required>
                   <MenuItem value={"Mr"}>Mr</MenuItem>
                   <MenuItem value={"Mrs"}>Mrs</MenuItem>
                 </Select>
@@ -141,7 +141,7 @@ const Form = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  //required
+                  required
                   id="outlined-basic"
                   label="first name"
                   variant="outlined"
@@ -157,7 +157,7 @@ const Form = () => {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  //required
+                  required
                   id="outlined-basic"
                   label="last name"
                   variant="outlined"
@@ -177,15 +177,10 @@ const Form = () => {
                 render={({ field }) => (
                   <ReactDatePicker
                     className="input"
-                    //required
+                    required
                     placeholderText="mm/dd/yy"
                     onChange={(e) => field.onChange(e)}
                     selected={field.value}
-                    style={{
-                      display: "flex",
-                      padding: "50px",
-                      backgroundColor: "red",
-                    }}
                   />
                 )}
               />
@@ -256,7 +251,7 @@ const Form = () => {
                 render={({ field }) => (
                   <TextField
                     {...field}
-                    //required
+                    required
                     id="outlined-basic"
                     label="phone"
                     variant="outlined"
@@ -288,8 +283,8 @@ const Form = () => {
                 render={({ field }) => (
                   <NumberFormat
                     thousandSeparator
-                    //required
                     {...field}
+                    required
                     id="outlined-basic"
                     variant="outlined"
                     style={{

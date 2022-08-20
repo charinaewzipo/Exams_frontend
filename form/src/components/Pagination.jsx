@@ -25,7 +25,7 @@ const Pagination = () => {
     {
       field: "Mobile Phone",
       headerName: "Mobile Phone",
-      width: 200,
+      width: 300,
       valueGetter: (params) =>
         `+${params?.row.country.phone || ""} ${params.row?.Phone || ""}`,
     },
@@ -44,47 +44,6 @@ const Pagination = () => {
     },
   ];
 
-  const datas = [
-    {
-      uuid: "983e906e-4841-4b72-8092-92d2e1951c0e",
-      Title: "Mr",
-      Nationality: "Thai",
-      Gender: "male",
-      Salary: "30,000",
-      country: { code: "TH", label: "Thailand", phone: "66" },
-      FirstName: "charin",
-      LastName: "aewzipo",
-      BirthDay: "2022-08-04T17:00:00.000Z",
-      CitizenID: "1929900543963",
-      Phone: "0950924619",
-    },
-    {
-      uuid: "083e906e-4841-4b72-8092-92d2e1901c1e",
-      Title: "Mr",
-      Nationality: "Thai",
-      Gender: "male",
-      Salary: "30,000",
-      country: { code: "TH", label: "Thailand", phone: "66" },
-      FirstName: "kongsak",
-      LastName: "pomsuk",
-      BirthDay: "2022-08-04T17:00:00.000Z",
-      CitizenID: "1929902054963",
-      Phone: "0950924619",
-    },
-    {
-      uuid: "983e906e-4841-4b72-8092-92d2e1901c0e",
-      Title: "Mr",
-      Nationality: "Thai",
-      Gender: "female",
-      Salary: "50,000",
-      country: { code: "TH", label: "Thailand", phone: "66" },
-      FirstName: "nakom",
-      LastName: "konglek",
-      BirthDay: "2022-08-05T17:00:00.000Z",
-      CitizenID: "325103333251",
-      Phone: "0652113325",
-    },
-  ];
   const LOCAL_STORAGE_KEY = "users";
   const [users, setUsers] = useState(
     JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) || []

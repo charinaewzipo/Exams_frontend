@@ -6,7 +6,8 @@ import Pagination from "./components/Pagination";
 function App() {
   return (
     <>
-      <Form />;<Pagination />;
+      <Form />
+      <Pagination />
     </>
   );
 }
